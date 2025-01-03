@@ -1,0 +1,22 @@
+.add-car-btn {
+    width: 65px;
+    border-radius: 20%;
+    margin-top: 10px;
+    justify-self: center;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.grid-container{
+    height: 270px;
+    overflow: auto;
+    margin-top: 40px;
+    .ag-center-cols-viewport {
+        min-height: unset !important;
+    }
+}
