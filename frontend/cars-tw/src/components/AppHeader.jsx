@@ -28,7 +28,7 @@ export const AppHeader = () => {
   return (
     <div className="main-layout">
       <div className="header-container">
-        <div className="welcome" onClick={handleHomePage}>Hi, {user.username} it's good to see you again</div>
+        <div className="welcome" onClick={handleHomePage}>Hi, {user.username}</div>
         <p onClick={handleLogout}>Logout</p>
       </div>
     </div>

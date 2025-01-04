@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { LoginPage } from "./pages/LoginPage";
 import { checkRefreshToken } from "./store/actions/userActions";
 import { AppHeader } from "./components/AppHeader";
+import { AppFooter } from "./components/AppFooter";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/cars" element={<CarsPage />} />
         </Routes>
       </main>
+      <AppFooter/>
     </div>
   );
 }

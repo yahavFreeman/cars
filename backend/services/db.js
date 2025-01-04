@@ -2,8 +2,7 @@ import sql from "mssql";
 import "dotenv/config";
 
 const config = {
-  server: 'db', // Container name of the database
-  port: 1433,
+  server: process.env.MODE_ENV === 'production'? process.env.MSSQL_HOST : 'localhost',
   authentication: {
     type: 'default',
     options: { userName: process.env.CARS_DB_USER_CONFIG, password: process.env.CARS_DB_PASSWORD_CONFIG }
