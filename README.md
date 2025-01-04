@@ -80,4 +80,35 @@ In order to make the refresh and access tokens invalid, just press the logout bu
 
 ### Dockrized app initiation
 
+To get started with the Dockerized version of the app, follow these steps:
+
+## Prerequisites
+
+Ensure you have Docker and Docker Compose installed on your system. If not, follow the installation guides:
+
+- Install Docker
+- Install Docker Compose
+
+### 1. Clone the Repository
+
+Clone this repository to your local machine:
+https cmd prompt: 
+## git clone https://github.com/yahavFreeman/cars.git
+
+### Build the docker images
+cmd prompt:
+## docker-compose build
+
+### Start the docker containers
+cmd prompt
+## docker-compose up -d
+
+### Run the applicaion
+app runs on:
+## http://localhost:80
+
+### Stop the containers
+cmd prompt:
+## docker-compose down
+
 
