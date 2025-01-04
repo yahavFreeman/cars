@@ -24,9 +24,7 @@ export function checkRefreshToken() {
 export function logout() {
     return async (dispatch) => {
         try {
-            console.log("inlog")
             await userService.logout()
-            console.log("outlog")
 
             dispatch({type: "USER/LOGOUT"})
         } catch (error) {

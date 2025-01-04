@@ -4,7 +4,6 @@ import "dotenv/config";
 let refreshTokenName = "refreshToken";
 
 async function login(req, res) {
-  console.log("in login")
   const { username, password } = req.body;
   try {
     // this is just instead of really logging and creating a users table
@@ -59,7 +58,6 @@ async function checkRefreshToken(req, res) {
 }
 
 async function logout(req, res) {
-  console.log("in logout", res.cookie)
   try {
     res.clearCookie(refreshTokenName) // removing the refresh token, the access token is the responsibility of the front to remove from it's state.
     console.log('Set-Cookie Header:', res.getHeaders()['set-cookie']);

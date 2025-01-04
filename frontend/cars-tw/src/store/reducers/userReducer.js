@@ -13,7 +13,6 @@ export function userReducer(state = INITIAL_STATE, action) {
             }
         
         case "USER/LOGOUT":
-            console.log(action)
             return {
                 ...state,
                 user: INITIAL_STATE.user,
