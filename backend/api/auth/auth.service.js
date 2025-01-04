@@ -19,15 +19,15 @@ async function login(username, password) {
     return user
 }
 
-// async function signup(username, password, fullname) {
-//     const saltRounds = 10
+async function checkRefreshToken() {
+    const saltRounds = 10
 
-//     logger.debug(`auth.service - signup with username: ${username}, fullname: ${fullname}`)
-//     if (!username || !password || !fullname) return Promise.reject('fullname, username and password are required!')
+    logger.debug(`auth.service - signup with username: ${username}, fullname: ${fullname}`)
+    if (!username || !password || !fullname) return Promise.reject('fullname, username and password are required!')
 
-//     const hash = await bcrypt.hash(password, saltRounds)
-//     return userService.add({ username, password: hash, fullname })
-// }
+    const hash = await bcrypt.hash(password, saltRounds)
+    return userService.add({ username, password: hash, fullname })
+}
 
 export default {
     login,

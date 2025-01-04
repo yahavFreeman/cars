@@ -17,15 +17,17 @@ export function checkRefreshToken() {
             const loggedUser = await userService.checkRefreshToken()
             dispatch({type:"USER/LOGIN", loggedUser})
         } catch (error) {
-            console.log(error)
         }
     }
 }
 
-export function logout(userId) {
+export function logout() {
     return async (dispatch) => {
         try {
-            await userService.logout(userId)
+            console.log("inlog")
+            await userService.logout()
+            console.log("outlog")
+
             dispatch({type: "USER/LOGOUT"})
         } catch (error) {
             console.log(error)

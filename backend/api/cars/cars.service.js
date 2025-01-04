@@ -1,9 +1,12 @@
 import { getDb } from "../../services/db.js";
 
-async function getAllCars(filterBy) {
+async function getAllCars() {
   try {
     const db = await getDb();
+    
     const request = await db.request();
+    console.log("Database connection established",request);
+
     const result = await request.execute("GetAllCars");
     return result.recordset; // recordset is where the data requested is.
   } catch (err) {
@@ -12,7 +15,7 @@ async function getAllCars(filterBy) {
   }
 }
 
-//CREATE PROCEDURE GetAllCars
+// CREATE PROCEDURE GetAllCars
 // AS
 // BEGIN
 //     SELECT * FROM Cars;
@@ -32,7 +35,7 @@ async function upsertCar(car) {
                 @Price = @PriceParam
         `;
 
-    // Use .input() to safely pass parameters
+    // Use request.input() to safely bind parameters to the query, preventing SQL injection and ensuring proper data handling.
     request.input("IDParam", car.ID || null);
     request.input("MakeParam", car.Make);
     request.input("ModelParam", car.Model);
@@ -41,13 +44,12 @@ async function upsertCar(car) {
 
     // Execute the query
     const result = await request.query(query);
-    return result.recordset[0];
+    return result.recordset[0]; // returning the updated car, which is in the first array cell.
   } catch (err) {
     console.error("Error upserting car:", err);
     throw err;
   }
 }
-
 
 export default {
   getAllCars,

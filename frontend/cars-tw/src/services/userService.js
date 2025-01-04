@@ -5,8 +5,8 @@ async function login(user) {
     
 }
 
-async function logout(userId) {
-    return await httpService.post("auth/logout",userId)
+async function logout() {
+    return await httpService.post("auth/logout", {})
     
 }
 

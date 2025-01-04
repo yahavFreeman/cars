@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend  # Path to the backend directory
+      dockerfile: Dockerfile  # Dockerfile is inside the backend directory
+    container_name: backend
+    ports:
+      - "3001:3001"  # Map port 3001 on the host to port 3001 in the container
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=yahavSecretProj
+      - JWT_REFRESH_SECRET=yahavSecretProjRefresher
+      - CARS_DB_USER_CONFIG=sa
+      - CARS_DB_PASSWORD_CONFIG=yourStrong(!)Password
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./frontend/cars-tw  # Path to the frontend directory
+      dockerfile: Dockerfile  # Dockerfile is inside the frontend directory
+    container_name: frontend
+    ports:
+      - "80:80"  # Frontend on port 80
+    depends_on:
+      - backend  # Wait for backend to start
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"  # Default SQL Server port
+    networks:
+      - app-network
+    volumes:
+    - ecstatic_greider:/var/lib/mssql
+
+volumes:
+  ecstatic_greider:
+    external: true
+
+networks:
+  app-network:
+    driver: bridge

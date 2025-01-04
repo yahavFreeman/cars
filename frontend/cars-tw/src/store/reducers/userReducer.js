@@ -8,14 +8,16 @@ export function userReducer(state = INITIAL_STATE, action) {
         case "USER/LOGIN":
             return {
                 ...state,
-                user: action.loggedUser.user,
-                accessToken: action.loggedUser.user.accessToken
+                user: action?.loggedUser,
+                accessToken: action?.loggedUser?.accessToken
             }
         
         case "USER/LOGOUT":
+            console.log(action)
             return {
                 ...state,
-                user: {}
+                user: INITIAL_STATE.user,
+                accessToken: INITIAL_STATE.accessToken
             }
         default:
             return state;

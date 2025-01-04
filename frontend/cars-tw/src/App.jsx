@@ -1,41 +1,53 @@
 import "./style/style.scss";
-import { HashRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { CarsPage } from './pages/CarsPage';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { CarsPage } from "./pages/CarsPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { LoginPage } from "./pages/LoginPage";
 import { checkRefreshToken } from "./store/actions/userActions";
+import { AppHeader } from "./components/AppHeader";
 
 
 function App() {
   const { user } = useSelector((state) => state.userModule);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  useEffect(() => {
-        if(!user.ID)
-        dispatch(checkRefreshToken())
-  }, []);
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if (user?.ID) {
-      navigate("/cars")
-    } else{
-      navigate("/")
-      setIsLoading(false)
+  useEffect(() => {
+    // On initial load, check refresh token or login status
+    dispatch(checkRefreshToken())
+      .finally(() => {
+        setIsLoading(false)}); // End loading once check is complete
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Redirect based on user status to keep user logged in
+    if (!isLoading) {
+      if (user?.accessToken) {
+        navigate("/cars");
+      } else {
+        navigate("/");
+      }
     }
-  }, [user, navigate])
+  }, [user, navigate]);
+
   if (isLoading) {
-    return <div>Loading...</div>; // Or some loading spinner
+    return <div className="app-loading-placeholer"></div>;
   }
 
   return (
     <div className="App">
-      {/* <header className="App-header"/> */}
+       <AppHeader className="App-header" user={user}/>
       <main>
         <Routes>
-          <Route path="/" element={< LoginPage />}/>
-          <Route path="/cars" element={< CarsPage />}/>
+          <Route path="/" element={<LoginPage/>} />
+          <Route path="/cars" element={<CarsPage />} />
         </Routes>
       </main>
     </div>

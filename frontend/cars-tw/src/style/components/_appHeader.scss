@@ -1,0 +1,11 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0 10px 0;
+    p,.welcome{
+        &:hover{
+            cursor: pointer;
+            color: rgb(163, 163, 163);
+        }
+    }
+}

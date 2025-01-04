@@ -1,14 +1,13 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import {checkRefreshToken} from '../api/auth/auth.controller.js'
+import { checkRefreshToken } from "../api/auth/auth.controller.js";
 
 const requireAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const refreshToken = req.cookies.refreshToken;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return checkRefreshToken(req,res)
-    // return res.status(401).json({ message: "Authentication required" });
+    return checkRefreshToken(req, res);
   }
 
   const accessToken = authHeader.split(" ")[1];
