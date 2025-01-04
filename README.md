@@ -38,12 +38,13 @@ Run one of the following
 
 ### Database (Dockerized Microsoft SQL Server)
 
-Pull the Microsoft SQL Server Docker image cmd prompt command:
+### Pull the DB Image
+cmd script:
+## docker pull ghcr.io/yahavfreeman/cars:latest
 
-## docker pull mcr.microsoft.com/mssql/server:2019-latest
-
-Run the Docker container cmd prompt command:
-## docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+### Run the DB Image
+cmd script:
+## docker run -d -p 1433:1433 ghcr.io/yahavfreeman/cars:latest 
 
 Verify the container is running cmd prompt command:
 
@@ -76,5 +77,7 @@ The refresh token is valid for two days, so you won't have to log in in that per
 The access token is generated for fifteen minutes.
 Current implementation of user authentication is as minimal as possible without a database storage, for the purpose of showcasing JWT alone.
 In order to make the refresh and access tokens invalid, just press the logout button in the app's header.
+
+### Dockrized app initiation
 
 

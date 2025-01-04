@@ -44,10 +44,10 @@ services:
     networks:
       - app-network
     volumes:
-    - ecstatic_greider:/var/lib/mssql
+    - mssql-data:/var/opt/mssql
 
 volumes:
-  ecstatic_greider:
+  mssql-data:
     external: true
 
 networks:
