@@ -30,10 +30,10 @@ const requireAuth = (req, res, next) => { // for an extensive explanation regard
               { expiresIn: "15m" }
             );
 
-            // Send the new token in the response
+            // Send the new access token in the response
             res.set("Authorization", `Bearer ${newAccessToken}`);
 
-            // Attach user data to the request
+            // Attach user data to the request in order to continue the api call chain.
             req.user = refreshDecoded.data;
             next();
           }

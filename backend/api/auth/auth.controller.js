@@ -21,7 +21,7 @@ async function login(req, res) {
       },
       process.env.JWT_REFRESH_SECRET, // value in README.md file
       {
-        expiresIn: "2 days", //the refresh token is an http only, meaning JS can't reach it, so it is
+        expiresIn: "2 days", //the refresh token is an http only, meaning only the backend can have access to it
       }
     );
     console.log("refreshToken: ", refreshToken);
@@ -62,7 +62,7 @@ async function logout(req, res) {
   try {
     res.clearCookie(refreshTokenName); // removing the refresh token, the access token is the responsibility of the front to remove from it's state.
     console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
-    res.status(200).send({ msg: "success" });
+    res.status(200).send({ msg: "logged out successfully" });
   } catch (err) {
     res.status(500).send({ err: "Failed to logout" });
   }

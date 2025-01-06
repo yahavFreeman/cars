@@ -35,7 +35,7 @@ services:
     environment:
       - NODE_ENV=production
   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: ghcr.io/yahavfreeman/cars:latest
     container_name: db
     environment:
       - ACCEPT_EULA=Y
