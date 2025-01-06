@@ -15,7 +15,10 @@ services:
       - JWT_REFRESH_SECRET=yahavSecretProjRefresher
       - CARS_DB_USER_CONFIG=sa
       - CARS_DB_PASSWORD_CONFIG=yourStrong(!)Password
+      - CARS_DB_PORT=1433
       - MSSQL_HOST=db
+      - MSSQL_DB=carsDataBase
+      - MODE_ENV=production
     depends_on:
       - db
   frontend:

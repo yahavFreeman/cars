@@ -5,7 +5,6 @@ async function getAllCars() {
     const db = await getDb();
     
     const request = await db.request();
-    console.log("Database connection established",request);
 
     const result = await request.execute("GetAllCars");
     return result.recordset; // recordset is where the data requested is.

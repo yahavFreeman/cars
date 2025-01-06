@@ -14,7 +14,10 @@ export const AppHeader = () => {
     navigate("/cars")
   }
   useEffect(() => {
-  }, [user]);
+    if (!user?.accessToken) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   if (!(user?.accessToken))
     return (

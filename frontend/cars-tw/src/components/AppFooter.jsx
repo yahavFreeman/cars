@@ -4,7 +4,7 @@ export const AppFooter = () => {
     return (
       <div className="main-layout footer-wrapper">
         <div className="footer-container">
-          <div className="cofferight">@Cofferights Yahav Freeman</div>
+          <div className="cofferight">© Yahav Freeman</div>
           <div className="socials">
           <a href="https://www.linkedin.com/in/yahav-freeman-79116a178/">
           <svg width="24" height="24">

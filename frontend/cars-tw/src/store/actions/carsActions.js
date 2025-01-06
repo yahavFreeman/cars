@@ -4,7 +4,7 @@ export function loadCars() {
     return async (dispatch) => {
         try {
             const cars = await carsService.getCars()
-            dispatch({type: 'CARS/SET', cars})
+            dispatch({type: 'CARS/GET', cars})
         } catch (error) {
             console.log(error)
         }

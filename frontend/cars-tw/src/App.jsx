@@ -1,57 +1,55 @@
 import "./style/style.scss";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { CarsPage } from "./pages/CarsPage";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { LoginPage } from "./pages/LoginPage";
-import { checkRefreshToken } from "./store/actions/userActions";
 import { AppHeader } from "./components/AppHeader";
 import { AppFooter } from "./components/AppFooter";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { checkRefreshToken } from "./store/actions/userActions";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 function App() {
-  const { user } = useSelector((state) => state.userModule);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // On initial load, check refresh token or login status
-    dispatch(checkRefreshToken())
-      .finally(() => {
-        setIsLoading(false)}); // End loading once check is complete
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Redirect based on user status to keep user logged in
-    if (!isLoading) {
-      if (user?.accessToken) {
-        navigate("/cars");
-      } else {
-        navigate("/");
-      }
+  const {accessToken, refreshTokenValidation} = useSelector((state)=>state.userModule)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+   useEffect(()=>{
+    const fetchRestartToken = async () =>{
+      await dispatch(checkRefreshToken())
     }
-  }, [user, navigate]);
+    fetchRestartToken()
+   }, [])
 
-  if (isLoading) {
-    return <div className="app-loading-placeholer"></div>;
-  }
+   useEffect(()=>{
+    if(location.pathname === "/" && accessToken) {
+      navigate("/cars")// this is the apps main page, so the user wont see the login page again
+    } else if(location.pathname !== "/" && accessToken) {
+      navigate(location.pathname) // going to any route on webpage refresh
+    } else {
+      navigate("/") // login fallback
+    }
+   },[accessToken])
+
+   if(refreshTokenValidation) {
+    return (
+      <></>
+    )
+   }
 
   return (
     <div className="App">
-       <AppHeader className="App-header" user={user}/>
+      <AppHeader className="App-header" />
       <main>
         <Routes>
-          <Route path="/" element={<LoginPage/>} />
-          <Route path="/cars" element={<CarsPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/cars" element={<CarsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <AppFooter/>
+      <AppFooter />
     </div>
   );
 }

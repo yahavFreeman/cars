@@ -24,6 +24,7 @@ async function login(req, res) {
         expiresIn: "2 days", //the refresh token is an http only, meaning JS can't reach it, so it is
       }
     );
+    console.log("refreshToken: ", refreshToken)
     const accessToken = jwt.sign({ data: loggedUser }, process.env.JWT_SECRET, {
       expiresIn: "15m", //access token is being set for 15 mins, for security messures,
       // since if we were to keep it stored, like in a cookie, JS would have access to it, so we want to keep it in the front's state and with a minimal time frame for security
@@ -42,7 +43,7 @@ async function login(req, res) {
 async function checkRefreshToken(req, res) {
   //this function is incharge of keeping the user logged in after his access token got expired.
   const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) return res.status(403).json({ message: "No token" });
+  if (!refreshToken) return res.json({ message: "No token" });
 
   try {
     const user = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET).data; //verifying the refreshToken

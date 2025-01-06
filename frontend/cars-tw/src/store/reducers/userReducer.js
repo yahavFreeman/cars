@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
     user:{},
-    accessToken:null
+    accessToken:null,
+    isLoadingUser: true,
+    refreshTokenValidation:false
 }
 
 export function userReducer(state = INITIAL_STATE, action) {
@@ -8,15 +10,24 @@ export function userReducer(state = INITIAL_STATE, action) {
         case "USER/LOGIN":
             return {
                 ...state,
-                user: action?.loggedUser,
-                accessToken: action?.loggedUser?.accessToken
+                user: action?.loggedUser || INITIAL_STATE.user,
+                accessToken: action?.loggedUser?.accessToken || INITIAL_STATE.accessToken,
+                isLoadingUser: false
             }
-        
+        case "USER/REFRESH_TOKEN_START":
+            return{
+                ...state,
+                refreshTokenValidation:true
+            }
+            case "USER/REFRESH_TOKEN_END":
+            return{
+                    ...state,
+                    refreshTokenValidation:false,
+                    isLoadingUser: false
+                }
         case "USER/LOGOUT":
             return {
-                ...state,
-                user: INITIAL_STATE.user,
-                accessToken: INITIAL_STATE.accessToken
+                ...INITIAL_STATE
             }
         default:
             return state;

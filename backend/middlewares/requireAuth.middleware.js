@@ -1,10 +1,12 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { checkRefreshToken } from "../api/auth/auth.controller.js";
-
+// use miro!!
 const requireAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  const refreshToken = req.cookies.refreshToken;
+  const refreshToken = req.cookies["refreshToken"];
+console.log("authHeader in mid:", req.headers)
+console.log("refreshToken in mid:", req.cookies["refreshToken"])
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return checkRefreshToken(req, res);

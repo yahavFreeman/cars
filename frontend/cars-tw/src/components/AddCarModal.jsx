@@ -4,10 +4,19 @@ export const AddCarModal = ({onClose, onSubmit}) =>{
 
     const [isVisible, setIsVisible] = useState(false);
     const makeRef = useRef()
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose()
+      }
+    };
 
     useEffect(() => {
-      setIsVisible(true); // This will trigger the opacity transition when the component mounts
+      setIsVisible(true); // this will trigger the opacity transition when the component mounts
       makeRef.current.focus() // making the first input focused when modal pops
+      document.addEventListener("keydown", handleKeyDown);
+      return () => { // triggers when component unmounts
+        document.removeEventListener("keydown", handleKeyDown);
+      };
     }, []);
     const [newCar, setNewCar] = useState({
         Make:'',
@@ -20,10 +29,6 @@ export const AddCarModal = ({onClose, onSubmit}) =>{
         const { name, value } = e.target;
         setNewCar({ ...newCar, [name]: value });
       };
-      
-      const handleFormClick = ((e) => {
-        e.stopPropagation()
-      })
 
       const handleSubmit = ((e)=>{
         e.preventDefault()
