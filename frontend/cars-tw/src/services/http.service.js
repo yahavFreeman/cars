@@ -1,8 +1,7 @@
 import Axios from "axios";
 import { store } from "../store"; // Import the store for the access token
 
-const BASE_URL =
-  "//localhost:3001/api/";
+const BASE_URL = "//localhost:3001/api/";
 
 var axios = Axios.create({
   withCredentials: true,

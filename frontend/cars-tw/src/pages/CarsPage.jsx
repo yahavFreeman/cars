@@ -21,7 +21,7 @@ export const CarsPage = (props) => {
 
   const addNewCar = (carSubmited) => {
     handleUpsertCar(carSubmited);
-    toggleModal()
+    toggleModal();
   };
 
   const toggleModal = () => {

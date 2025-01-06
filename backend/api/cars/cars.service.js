@@ -3,7 +3,7 @@ import { getDb } from "../../services/db.js";
 async function getAllCars() {
   try {
     const db = await getDb();
-    
+
     const request = await db.request();
 
     const result = await request.execute("GetAllCars");

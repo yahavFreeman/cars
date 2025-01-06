@@ -20,12 +20,12 @@ export default function CarsList({ cars, cellStateChange }) {
     flex: 1,
   };
   return (
-      <AgGridReact
-        rowData={cars}
-        columnDefs={colHeaders}
-        defaultColDef={defaultColDef}
-        onCellEditingStopped={cellStateChange}
-        domLayout="autoHeight"
-      />
+    <AgGridReact
+      rowData={cars}
+      columnDefs={colHeaders}
+      defaultColDef={defaultColDef}
+      onCellEditingStopped={cellStateChange}
+      domLayout="autoHeight"
+    />
   );
 }

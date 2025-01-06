@@ -5,21 +5,21 @@ import { useNavigate } from "react-router-dom";
 
 export const AppHeader = () => {
   const { user } = useSelector((state) => state.userModule);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
   };
   const handleHomePage = () => {
-    navigate("/cars")
-  }
+    navigate("/cars");
+  };
   useEffect(() => {
     if (!user?.accessToken) {
       navigate("/");
     }
   }, [user, navigate]);
 
-  if (!(user?.accessToken))
+  if (!user?.accessToken)
     return (
       <div className="main-layout">
         <div className="header-container">
@@ -31,7 +31,9 @@ export const AppHeader = () => {
   return (
     <div className="main-layout">
       <div className="header-container">
-        <div className="welcome" onClick={handleHomePage}>Hi, {user.username}</div>
+        <div className="welcome" onClick={handleHomePage}>
+          Hi, {user.username}
+        </div>
         <p onClick={handleLogout}>Logout</p>
       </div>
     </div>

@@ -24,7 +24,7 @@ async function login(req, res) {
         expiresIn: "2 days", //the refresh token is an http only, meaning JS can't reach it, so it is
       }
     );
-    console.log("refreshToken: ", refreshToken)
+    console.log("refreshToken: ", refreshToken);
     const accessToken = jwt.sign({ data: loggedUser }, process.env.JWT_SECRET, {
       expiresIn: "15m", //access token is being set for 15 mins, for security messures,
       // since if we were to keep it stored, like in a cookie, JS would have access to it, so we want to keep it in the front's state and with a minimal time frame for security
@@ -60,9 +60,9 @@ async function checkRefreshToken(req, res) {
 
 async function logout(req, res) {
   try {
-    res.clearCookie(refreshTokenName) // removing the refresh token, the access token is the responsibility of the front to remove from it's state.
-    console.log('Set-Cookie Header:', res.getHeaders()['set-cookie']);
-    res.status(200).send({msg:"success"});
+    res.clearCookie(refreshTokenName); // removing the refresh token, the access token is the responsibility of the front to remove from it's state.
+    console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
+    res.status(200).send({ msg: "success" });
   } catch (err) {
     res.status(500).send({ err: "Failed to logout" });
   }
