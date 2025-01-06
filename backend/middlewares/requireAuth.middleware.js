@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { checkRefreshToken } from "../api/auth/auth.controller.js";
-// use miro!!
-const requireAuth = (req, res, next) => {
+const requireAuth = (req, res, next) => { // for an extensive explanation regarding JWT tokens, please reffer to the README.md file
   const authHeader = req.headers.authorization;
   const refreshToken = req.cookies["refreshToken"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -12,7 +11,7 @@ const requireAuth = (req, res, next) => {
   const accessToken = authHeader.split(" ")[1];
 
   // Verify the access token
-  jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => { 
     if (err) {
       if (err.name === "TokenExpiredError" && refreshToken) {
         // Token expired, attempt to refresh
